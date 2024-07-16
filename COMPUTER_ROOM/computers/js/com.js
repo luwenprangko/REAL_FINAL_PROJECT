@@ -53,21 +53,22 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const database = firebaseApp.database();
 
+
 // Function to fetch and highlight data from Firebase
 function fetchDataAndHighlight() {
-    database.ref().on('value', (snapshot) => {
-        // Clear all cell styles and set vacant click event
-        document.querySelectorAll('td.all-pc').forEach(tdElement => {
-            tdElement.style.backgroundColor = '';
-            tdElement.style.color = '';
-            tdElement.onclick = displayVacant;
-        });
+    const refPath = 'attendance-lab-1/'
+    // Clear all cell styles and set vacant click event
+    document.querySelectorAll('td.all-pc').forEach(tdElement => {
+        tdElement.style.backgroundColor = '';
+        tdElement.style.color = '';
+        tdElement.onclick = displayVacant;
+    });
 
-        let dataExists = false;
+    database.ref(refPath).once('value')
+        .then((snapshot) => {
+            let dataExists = false;
 
-        // Highlight cells based on the data
-        snapshot.forEach((dateSnapshot) => {
-            dateSnapshot.forEach((childSnapshot) => {
+            snapshot.forEach((childSnapshot) => {
                 const data = childSnapshot.val();
                 const pcNumber = data.pcNumber;
                 const tdElement = document.getElementById(`pcNumber-${pcNumber}`);
@@ -86,46 +87,32 @@ function fetchDataAndHighlight() {
                     }
                 }
             });
-        });
 
-        // Clear student details if no data exists
-        if (!dataExists) {
-            displayVacant();
-        }
-    }, (error) => {
-        console.error("Error fetching data: ", error);
-    });
+            // Clear student details if no data exists
+            if (!dataExists) {
+                displayVacant();
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching data: ", error);
+        });
 }
 
-// // Function to display student details in the div
-// function displayStudentDetail(data) {
-//     const studentDetailDiv = document.getElementById('student-detail');
-//     studentDetailDiv.innerHTML = `
-//         <span>${data.lastName}</span>
-//         <span> ${data.firstName}</span>
-//         <span> ${data.middleInitial}</span>
-//         <div>PC #: ${data.pcNumber}</div>
-//         <div>Time In: ${data.timeIn}</div>
-//         <a href=""><button>Report</button></a>
-//     `;
-// }
 
 // Function to display student details in the div
 function displayStudentDetail(data) {
     const studentDetailDiv = document.getElementById('student-detail');
     studentDetailDiv.innerHTML = `
-        <span>${data.lastName}</span>
-        <span>${data.firstName}</span>
-        <span>${data.middleInitial}</span>
+        <span>${data.fullName}</span>
         <div>PC #: ${data.pcNumber}</div>
         <div>Time In: ${data.timeIn}</div>
-        <button onclick="copyData('${data.lastName}', '${data.firstName}', '${data.middleInitial}', '${data.pcNumber}', '${data.timeIn}')">Report</button>
+        <button onclick="copyData('${data.fullName}', '${data.pcNumber}', '${data.timeIn}')">Report</button>
     `;
 }
 
 // Function to copy data
-function copyData(lastName, firstName, middleInitial, pcNumber, timeIn) {
-    const dataToCopy = `${lastName}, ${firstName} ${middleInitial} | PC #: ${pcNumber} | Time In: ${timeIn}`;
+function copyData(fullName, pcNumber, timeIn) {
+    const dataToCopy = `${fullName} | PC #: ${pcNumber} | Time In: ${timeIn}`;
     
     // Create a temporary textarea element
     const textarea = document.createElement('textarea');
