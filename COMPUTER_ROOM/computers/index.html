@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Example</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container-computer">
+        <div class="table-container">
+            <table id="pcTable">
+                <tr>
+                    <td class="all-pc idle" id="pcNumber-26">26 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="legend" colspan="6">
+                        <span class="legend-item"><span class="legend-color" style="background-color: red;"></span> Faulty</span>
+                        <span class="legend-item"><span class="legend-color" style="background-color: orange;"></span> Offline</span>
+                        <span class="legend-item"><span class="legend-color" style="background-color: green;"></span> Online</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="all-pc idle damage" id="pcNumber-25">25 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc space" rowspan="5"></td>
+                    <td class="all-pc idle" id="pcNumber-16">16 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-15">15 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc space" rowspan="5"></td>
+                    <td class="all-pc idle" id="pcNumber-06">06 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-05">05 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                </tr>
+                <tr>
+                    <td class="all-pc idle" id="pcNumber-24">24 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-17">17 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-14">14 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-07">07 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-04">04 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                </tr>
+                <tr>
+                    <td class="all-pc idle" id="pcNumber-23">23 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-18">18 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-13">13 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-08">08 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-03">03 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                </tr>
+                <tr>
+                    <td class="all-pc idle" id="pcNumber-22">22 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-19">19 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-12">12 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-09">09 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-02">02 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                </tr>
+                <tr>
+                    <td class="all-pc idle" id="pcNumber-21">21 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-20">20 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle damage" id="pcNumber-11">11 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-10">10 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                    <td class="all-pc idle" id="pcNumber-01">01 <img id="pc-icon" src="icons/comp.svg" alt="pc-icon"></td>
+                </tr>
+                <tr>
+                    <th class="space" colspan="2"></th>
+                    <th colspan="3">Teacher's Table</th>
+                    <th class="space" colspan="2"></th>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        Students Detail:
+                        <div id="student-detail"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Your custom JavaScript -->
+    <script src="js/com.js"></script>
+</body>
+</html>

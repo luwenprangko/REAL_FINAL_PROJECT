@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Rules Control</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-database-compat.js"></script>
+</head>
+<body>
+    <h2>Register</h2>
+    <form id="registerForm">
+        <input type="email" id="email" placeholder="Email" required><br>
+        <input type="text" id="srcode" placeholder="SR CODE" required><br>
+        <input type="password" id="password" placeholder="Password" required><br>
+        <input type="text" id="firstName" placeholder="First Name" required><br>
+        <input type="text" id="lastName" placeholder="Last Name" required><br>
+        <input type="text" id="middleInitial" placeholder="Middle Initial"><br>
+        <button type="submit">Register</button>
+    </form>
+
+    <script src="app.js"></script>
+</body>
+</html>

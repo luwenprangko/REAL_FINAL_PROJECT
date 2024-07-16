@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Sidebar</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<section class="container">
+    <div class="sidebar">
+        <h2>Sidebar</h2>
+        <ul>
+            <li><a href="#" onclick="showContent('home')">Home</a></li>
+            <li><a href="#" onclick="showContent('about')">About</a></li>
+            <!-- Add more links as needed -->
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="home active"> <!-- Added 'active' class to make it default -->
+            <h2>Home Content</h2>
+            <p>This is the main content area for Home. Replace this with your content.</p>
+        </div>
+        <div class="about">
+            <h2>About Content</h2>
+            <p>This is the main content area for About. Replace this with your content.</p>
+        </div>
+        <!-- Add more content sections as needed -->
+    </div>
+</section>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
