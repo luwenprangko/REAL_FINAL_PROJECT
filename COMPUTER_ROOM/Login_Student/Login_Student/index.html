@@ -20,7 +20,6 @@
 <section class="container mt-5">
     <h1>Student Login</h1>
     <form id="dataForm">
-
         <div class="mb-3">
             <label for="lastName" class="form-label">Instructor's Name:</label>
             <select class="form-select" id="instructorName">
@@ -29,28 +28,22 @@
                 <option value="Mr. Joshua Abella">Mr. Joshua Abella</option>
             </select>
         </div>
-        <div class="mb-3">
-            <label for="lastName" class="form-label">SRCODE</label>
-            <input type="text" class="form-control" id="srCode" placeholder="ex. 2x-XXXXX">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="srcode" placeholder="name@example.com">
+            <label for="floatingInput">SR-CODE</label>
         </div>
-        <div class="mb-3">
-            <label for="lastName" class="form-label">Last Name:</label>
-            <input type="text" class="form-control" id="lastName" placeholder="Dela Cruz">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
         </div>
-        <div class="mb-3">
-            <label for="firstName" class="form-label">First Name:</label>
-            <input type="text" class="form-control" id="firstName" placeholder="Juan">
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
         </div>
-        <div class="mb-3">
-            <label for="middleInitial" class="form-label">Middle Initial:</label>
-            <input type="text" class="form-control" id="middleInitial" placeholder="A.">
-        </div>
-
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 mt-3">
             <span class="input-group-text" id="basic-addon1">PC #</span>
             <input type="text" class="form-control" id="pcNumber" placeholder="ex. 01 to 26" aria-describedby="basic-addon1">
         </div>
-
         <div class="d-grid mb-5">
             <button class="btn btn-primary" id="submitButton" type="submit">TIME IN</button>
         </div>
