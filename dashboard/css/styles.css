@@ -1,8 +1,11 @@
-/* CSS styles from before */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+}
+
+hr {
+    margin: 0 20px 0 20px;
 }
 
 .container {
@@ -56,15 +59,11 @@ body {
 }
 
 /* New styles for showing/hiding content sections */
-<<<<<<< HEAD:dashboard/styles.css
-
-=======
->>>>>>> 8451902c0e66ae25bed189bc88e1498563e9639f:dashboard/css/styles.css
-.home, .about {
+.home, .lab1, .lab2 {
     display: none; /* Hide initially */
 }
 
-.home.active, .about.active {
+.home.active, .lab1.active, .lab2.active {
     display: block; /* Show when active */
 }
 
