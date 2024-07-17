@@ -1,43 +1,3 @@
-// // Initialize Firebase with your project's config
-// const firebaseConfig = {
-//     apiKey: "AIzaSyAdssKrSZdB5MeO6bLlzs9ra42XSsQbNlg",
-//     authDomain: "comlab-41b63.firebaseapp.com",
-//     projectId: "comlab-41b63",
-//     storageBucket: "comlab-41b63.appspot.com",
-//     messagingSenderId: "573050227714",
-//     appId: "1:573050227714:web:8c3720298c64b470fb6b1b"
-// };
-
-// // Initialize Firebase
-// const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-// // Get a reference to the database service
-// const database = firebaseApp.database();
-
-// // Function to fetch and highlight data from Firebase
-// function fetchDataAndHighlight() {
-//     database.ref().on('value', (snapshot) => {
-//         snapshot.forEach((dateSnapshot) => {
-//             dateSnapshot.forEach((childSnapshot) => {
-//                 const data = childSnapshot.val();
-//                 const pcNumber = data.pcNumber;
-//                 const tdElement = document.getElementById(`pcNumber-${pcNumber}`);
-//                 if (tdElement) {
-//                     tdElement.style.backgroundColor = 'green';
-//                     tdElement.style.color = 'white';
-//                 }
-//             });
-//         });
-//     }, (error) => {
-//         console.error("Error fetching data: ", error);
-//     });
-// }
-
-// // Call fetchDataAndHighlight to load the data and highlight cells when the page loads
-// window.onload = fetchDataAndHighlight;
-
-
-
 // Initialize Firebase with your project's config
 const firebaseConfig = {
     apiKey: "AIzaSyAdssKrSZdB5MeO6bLlzs9ra42XSsQbNlg",
@@ -54,9 +14,9 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 const database = firebaseApp.database();
 
 
-// Function to fetch and highlight data from Firebase
 function fetchDataAndHighlight() {
-    const refPath = 'attendance-lab-1/'
+    const refPath = 'attendance-lab-1/';
+
     // Clear all cell styles and set vacant click event
     document.querySelectorAll('td.all-pc').forEach(tdElement => {
         tdElement.style.backgroundColor = '';
@@ -64,39 +24,39 @@ function fetchDataAndHighlight() {
         tdElement.onclick = displayVacant;
     });
 
-    database.ref(refPath).once('value')
-        .then((snapshot) => {
-            let dataExists = false;
+    database.ref(refPath).on('value', (snapshot) => {
+        let dataExists = false;
 
-            snapshot.forEach((childSnapshot) => {
-                const data = childSnapshot.val();
-                const pcNumber = data.pcNumber;
-                const tdElement = document.getElementById(`pcNumber-${pcNumber}`);
-                if (tdElement) {
-                    if (data.timeOut) {
-                        // Reset cell styles to default if timeOut is set
-                        tdElement.style.backgroundColor = '';
-                        tdElement.style.color = '';
-                        tdElement.onclick = displayVacant;
-                    } else {
-                        // Highlight cell if timeOut is not set
-                        dataExists = true;
-                        tdElement.style.backgroundColor = 'green';
-                        tdElement.style.color = 'white';
-                        tdElement.onclick = () => displayStudentDetail(data);
-                    }
+        snapshot.forEach((childSnapshot) => {
+            const data = childSnapshot.val();
+            const pcNumber = data.pcNumber;
+            const tdElement = document.getElementById(`pcNumber-${pcNumber}`);
+            if (tdElement) {
+                if (data.timeOut) {
+                    // Reset cell styles to default if timeOut is set
+                    tdElement.style.backgroundColor = '';
+                    tdElement.style.color = '';
+                    tdElement.onclick = displayVacant;
+                } else {
+                    // Highlight cell if timeOut is not set
+                    dataExists = true;
+                    tdElement.style.backgroundColor = 'green';
+                    tdElement.style.color = 'white';
+                    tdElement.onclick = () => displayStudentDetail(data);
                 }
-            });
-
-            // Clear student details if no data exists
-            if (!dataExists) {
-                displayVacant();
             }
-        })
-        .catch((error) => {
-            console.error("Error fetching data: ", error);
         });
+
+        // Clear student details if no data exists
+        if (!dataExists) {
+            displayVacant();
+        }
+    }, (error) => {
+        console.error("Error fetching data: ", error);
+    });
 }
+
+
 
 
 // Function to display student details in the div
