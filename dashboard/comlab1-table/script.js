@@ -27,16 +27,18 @@ function fetchDataAndPopulateTable() {
             console.log("Data from Firebase:", data); // Log each data object
 
             // Check if data exists and has the expected fields
-            if (data && data.fullName && data.pcNumber && data.timeIn) {
+            if (data && data.srcode && data.fullName && data.pcNumber && data.timeIn) {
 
                 // Create a table row element
                 const row = document.createElement("tr");
 
                 // Populate table row with data
                 row.innerHTML = `
+                    <td>${data.srcode}</td>
                     <td>${data.fullName}</td>
                     <td>${data.pcNumber}</td>
                     <td>${data.timeIn}</td>
+                    <td>${data.date}</td>
                 `;
 
                 // Append row to table body

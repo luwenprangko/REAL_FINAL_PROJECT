@@ -45,7 +45,7 @@ dataForm.addEventListener('submit', async (e) => {
             userRef.once('value', (snapshot) => {
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
-                    const fullName = userData.firstName + ' ' + userData.middleInitial + ' ' + userData.lastName;
+                    const fullName = userData.lastName + ' ' + userData.firstName + ' ' + userData.middleInitial;
 
                     // Record login timestamp and full name in attendance node
                     const currentDate = new Date();
@@ -55,6 +55,13 @@ dataForm.addEventListener('submit', async (e) => {
                         hour12: true
                     });
 
+                    // Format the date as "DD-MM-YYYY"
+                    const day = String(currentDate.getDate()).padStart(2, '0');
+                    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+                    const year = currentDate.getFullYear();
+
+                    const formattedDate = `${day}-${month}-${year}`;
+
                     // Store user inputs in local storage
                     localStorage.setItem('comlab', comlab);
                     localStorage.setItem('srcode', srcode);
@@ -62,6 +69,8 @@ dataForm.addEventListener('submit', async (e) => {
                     localStorage.setItem('pcNumber', pcNumber);
 //lab
                     database.ref(comlab + srcode).update({
+                        srcode: srcode,
+                        date: formattedDate,
                         timeIn: formattedTimeIn,
                         fullName: fullName,
                         pcNumber: pcNumber

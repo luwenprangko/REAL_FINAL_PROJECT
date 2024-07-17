@@ -8,12 +8,13 @@
 <body>
 <section class="container">
     <div class="sidebar">
-        <h2>Sidebar</h2>
+        <h2>CMS</h2>
         <hr>
         <ul>
             <li><a href="#" onclick="showContent('home')">Home</a></li>
-            <li><a href="#" onclick="showContent('lab1')">ComLab 1</a></li>
-            <li><a href="#" onclick="showContent('lab2')">ComLab 2</a></li>
+            <li><a href="#" onclick="showContent('lab1')">ComLab 1 <span class="small-font">Data Table</span></a></li>
+            <li><a href="#" onclick="showContent('lab2')">ComLab 2 <span class="small-font">Data Table</span></a></li>
+            <li><a href="#" onclick="showContent('dataWare')">Data Warehouse</a></li>
             <!-- Add more links as needed -->
         </ul>
     </div>
@@ -26,12 +27,20 @@
 
         <div class="lab1">
             <h2>Laboratory 1 Content</h2>
-            <p>This is the main content area for Lab-1. Replace this with your content.</p>
+            <p>This is the main content area for Lab-1.</p>
+            <iframe src="./comlab1-table/index.html" frameborder="0"></iframe>
         </div>
 
         <div class="lab2">
             <h2>Laboratory 2 Content</h2>
-            <p>This is the main content area for Lab-2. Replace this with your content.</p>
+            <p>This is the main content area for Lab-2.</p>
+            <iframe src="./comlab2-table/index.html" frameborder="0"></iframe>
+        </div>
+
+        <div class="dataWare">
+            <h2>Previews Content</h2>
+            <p>This is the main content area for previews data.</p>
+            <iframe src="" frameborder="0"></iframe>
         </div>
         <!-- Add more content sections as needed -->
     </div>
