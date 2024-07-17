@@ -56,17 +56,19 @@ dataForm.addEventListener('submit', async (e) => {
                     });
 
                     // Store user inputs in local storage
+                    localStorage.setItem('comlab', comlab);
                     localStorage.setItem('srcode', srcode);
                     localStorage.setItem('email', email);
                     localStorage.setItem('pcNumber', pcNumber);
 //lab
-                    database.ref('com-lab-1/' + srcode).update({
+                    database.ref(comlab + srcode).update({
                         timeIn: formattedTimeIn,
                         fullName: fullName,
                         pcNumber: pcNumber
                     });
 
                     // Disable form inputs
+                    dataForm['comlab'].disabled = true;
                     dataForm['srcode'].disabled = true;
                     dataForm['email'].disabled = true;
                     dataForm['password'].disabled = true;
@@ -103,11 +105,12 @@ dataForm.addEventListener('submit', async (e) => {
             const storedSrcode = localStorage.getItem('srcode');
 //lab
             // Update the database for time out
-            database.ref('com-lab-1/' + storedSrcode).update({
+            database.ref(comlab + storedSrcode).update({
                 timeOut: formattedTimeOut
             });
 
             // Clear local storage
+            localStorage.removeItem('comlab');
             localStorage.removeItem('srcode');
             localStorage.removeItem('email');
             localStorage.removeItem('pcNumber');
@@ -121,6 +124,7 @@ dataForm.addEventListener('submit', async (e) => {
             submitButton.classList.add('btn-primary');
 
             // Enable form inputs
+            dataForm['comlab'].disabled = false;
             dataForm['srcode'].disabled = false;
             dataForm['email'].disabled = false;
             dataForm['password'].disabled = false;
@@ -138,18 +142,21 @@ dataForm.addEventListener('submit', async (e) => {
 
 // Check local storage on page load
 window.addEventListener('load', () => {
+    const storedComlab = localStorage.getItem('comlab');
     const storedSrcode = localStorage.getItem('srcode');
     const storedEmail = localStorage.getItem('email');
     const storedPcNumber = localStorage.getItem('pcNumber');
     const buttonState = localStorage.getItem('buttonState');
 
-    if (storedSrcode && storedEmail && storedPcNumber) {
+    if (storedComlab && storedSrcode && storedEmail && storedPcNumber) {
         // Populate form fields with stored values
+        dataForm['comlab'].value = storedComlab;
         dataForm['srcode'].value = storedSrcode;
         dataForm['email'].value = storedEmail;
         dataForm['pcNumber'].value = storedPcNumber;
 
         // Disable form inputs
+        dataForm['comlab'].disabled = true;
         dataForm['srcode'].disabled = true;
         dataForm['email'].disabled = true;
         dataForm['password'].disabled = true;

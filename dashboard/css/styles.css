@@ -1,0 +1,77 @@
+/* CSS styles from before */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* Ensure the body takes full viewport height */
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1a1a1a;
+    padding-top: 20px;
+    overflow-y: auto; /* Allow sidebar content to scroll if it exceeds viewport height */
+}
+
+.sidebar h2 {
+    color: #fff;
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 0 0 15px 30px;
+}
+
+.sidebar ul li a {
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    color: #fff;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto; /* Allow content area to scroll if it exceeds viewport height */
+}
+
+.content h2 {
+    color: #333;
+}
+
+.content p {
+    color: #666;
+}
+
+/* New styles for showing/hiding content sections */
+<<<<<<< HEAD:dashboard/styles.css
+
+=======
+>>>>>>> 8451902c0e66ae25bed189bc88e1498563e9639f:dashboard/css/styles.css
+.home, .about {
+    display: none; /* Hide initially */
+}
+
+.home.active, .about.active {
+    display: block; /* Show when active */
+}
+
+.content h2 {
+    margin-bottom: 10px;
+}
+
+.content p {
+    line-height: 1.6;
+}

@@ -1,0 +1,41 @@
+
+.container-table {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container-computer-table {
+    overflow: auto;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-top: 20px; /* Example margin */
+}
+
+table {
+    width: 700px; /* Fixed width for the table */
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    width: 100px; /* Set width */
+    height: 100px; /* Set height */
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #06abf8;
+}
+
+/* Ensure square cells */
+th, td {
+    width: 100px; /* Set width */
+    height: 100px; /* Set height */
+}
+
+.green-cell {
+    background-color: green;
+}
