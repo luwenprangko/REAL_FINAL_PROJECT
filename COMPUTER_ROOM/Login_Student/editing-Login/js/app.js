@@ -26,6 +26,8 @@ dataForm.addEventListener('submit', async (e) => {
     submitButton.disabled = true;
 
     // Get user input
+    const comlab = dataForm['comlab'].value;
+    const profName = dataForm['profName'].value;
     const srcode = dataForm['srcode'].value;
     const email = dataForm['email'].value;
     const password = dataForm['password'].value;
@@ -57,8 +59,8 @@ dataForm.addEventListener('submit', async (e) => {
                     localStorage.setItem('srcode', srcode);
                     localStorage.setItem('email', email);
                     localStorage.setItem('pcNumber', pcNumber);
-
-                    database.ref('attendance-lab-1/' + srcode).update({
+//lab
+                    database.ref('com-lab-1/' + srcode).update({
                         timeIn: formattedTimeIn,
                         fullName: fullName,
                         pcNumber: pcNumber
@@ -99,9 +101,9 @@ dataForm.addEventListener('submit', async (e) => {
             });
 
             const storedSrcode = localStorage.getItem('srcode');
-
+//lab
             // Update the database for time out
-            database.ref('attendance-lab-1/' + storedSrcode).update({
+            database.ref('com-lab-1/' + storedSrcode).update({
                 timeOut: formattedTimeOut
             });
 

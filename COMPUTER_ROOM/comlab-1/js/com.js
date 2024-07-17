@@ -15,7 +15,7 @@ const database = firebaseApp.database();
 
 
 function fetchDataAndHighlight() {
-    const refPath = 'attendance-lab-1/';
+    const refPath = 'com-lab-1/';
 
     // Clear all cell styles and set vacant click event
     document.querySelectorAll('td.all-pc').forEach(tdElement => {
