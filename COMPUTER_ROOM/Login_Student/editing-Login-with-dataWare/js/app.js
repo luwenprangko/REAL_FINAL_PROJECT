@@ -26,6 +26,8 @@ dataForm.addEventListener('submit', async (e) => {
     submitButton.disabled = true;
 
     // Get user input
+    const comlab = dataForm['comlab'].value;
+    const profName = dataForm['profName'].value;
     const srcode = dataForm['srcode'].value;
     const email = dataForm['email'].value;
     const password = dataForm['password'].value;
@@ -43,7 +45,7 @@ dataForm.addEventListener('submit', async (e) => {
             userRef.once('value', (snapshot) => {
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
-                    const fullName = userData.firstName + ' ' + userData.middleInitial + ' ' + userData.lastName;
+                    const fullName = userData.lastName + ' ' + userData.firstName + ' ' + userData.middleInitial;
 
                     // Record login timestamp and full name in attendance node
                     const currentDate = new Date();
@@ -53,18 +55,29 @@ dataForm.addEventListener('submit', async (e) => {
                         hour12: true
                     });
 
+                    // Format the date as "DD-MM-YYYY"
+                    const day = String(currentDate.getDate()).padStart(2, '0');
+                    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+                    const year = currentDate.getFullYear();
+
+                    const formattedDate = `${day}-${month}-${year}`;
+
                     // Store user inputs in local storage
+                    localStorage.setItem('comlab', comlab);
                     localStorage.setItem('srcode', srcode);
                     localStorage.setItem('email', email);
                     localStorage.setItem('pcNumber', pcNumber);
-
-                    database.ref('attendance-lab-1/' + srcode).update({
+//lab
+                    database.ref(comlab + srcode).update({
+                        srcode: srcode,
+                        date: formattedDate,
                         timeIn: formattedTimeIn,
                         fullName: fullName,
                         pcNumber: pcNumber
                     });
 
                     // Disable form inputs
+                    dataForm['comlab'].disabled = true;
                     dataForm['srcode'].disabled = true;
                     dataForm['email'].disabled = true;
                     dataForm['password'].disabled = true;
@@ -99,13 +112,14 @@ dataForm.addEventListener('submit', async (e) => {
             });
 
             const storedSrcode = localStorage.getItem('srcode');
-
+//lab
             // Update the database for time out
-            database.ref('attendance-lab-1/' + storedSrcode).update({
+            database.ref(comlab + storedSrcode).update({
                 timeOut: formattedTimeOut
             });
 
             // Clear local storage
+            localStorage.removeItem('comlab');
             localStorage.removeItem('srcode');
             localStorage.removeItem('email');
             localStorage.removeItem('pcNumber');
@@ -119,6 +133,7 @@ dataForm.addEventListener('submit', async (e) => {
             submitButton.classList.add('btn-primary');
 
             // Enable form inputs
+            dataForm['comlab'].disabled = false;
             dataForm['srcode'].disabled = false;
             dataForm['email'].disabled = false;
             dataForm['password'].disabled = false;
@@ -136,18 +151,21 @@ dataForm.addEventListener('submit', async (e) => {
 
 // Check local storage on page load
 window.addEventListener('load', () => {
+    const storedComlab = localStorage.getItem('comlab');
     const storedSrcode = localStorage.getItem('srcode');
     const storedEmail = localStorage.getItem('email');
     const storedPcNumber = localStorage.getItem('pcNumber');
     const buttonState = localStorage.getItem('buttonState');
 
-    if (storedSrcode && storedEmail && storedPcNumber) {
+    if (storedComlab && storedSrcode && storedEmail && storedPcNumber) {
         // Populate form fields with stored values
+        dataForm['comlab'].value = storedComlab;
         dataForm['srcode'].value = storedSrcode;
         dataForm['email'].value = storedEmail;
         dataForm['pcNumber'].value = storedPcNumber;
 
         // Disable form inputs
+        dataForm['comlab'].disabled = true;
         dataForm['srcode'].disabled = true;
         dataForm['email'].disabled = true;
         dataForm['password'].disabled = true;
