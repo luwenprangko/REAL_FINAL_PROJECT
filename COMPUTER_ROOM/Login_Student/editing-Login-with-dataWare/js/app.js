@@ -67,7 +67,7 @@ dataForm.addEventListener('submit', async (e) => {
                     localStorage.setItem('srcode', srcode);
                     localStorage.setItem('email', email);
                     localStorage.setItem('pcNumber', pcNumber);
-//lab
+
                     database.ref(comlab + srcode).update({
                         srcode: srcode,
                         date: formattedDate,
@@ -112,34 +112,54 @@ dataForm.addEventListener('submit', async (e) => {
             });
 
             const storedSrcode = localStorage.getItem('srcode');
-//lab
-            // Update the database for time out
-            database.ref(comlab + storedSrcode).update({
-                timeOut: formattedTimeOut
+
+            // Move data from comlab to dataWare
+            const comlabRef = database.ref(comlab + storedSrcode);
+            comlabRef.once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    data.timeOut = formattedTimeOut; // Add timeOut to data
+
+                    // Save to dataWare
+                    database.ref('dataWare/' + storedSrcode).set(data, (error) => {
+                        if (!error) {
+                            // Remove data from comlab
+                            comlabRef.remove();
+
+                            // Clear local storage
+                            localStorage.removeItem('comlab');
+                            localStorage.removeItem('srcode');
+                            localStorage.removeItem('email');
+                            localStorage.removeItem('pcNumber');
+                            localStorage.removeItem('buttonState');
+
+                            // Reset form and button
+                            dataForm.reset();
+                            submitButton.textContent = 'TIME IN';
+                            submitButton.setAttribute('data-action', 'time-in');
+                            submitButton.classList.remove('btn-danger');
+                            submitButton.classList.add('btn-primary');
+
+                            // Enable form inputs
+                            dataForm['comlab'].disabled = false;
+                            dataForm['srcode'].disabled = false;
+                            dataForm['email'].disabled = false;
+                            dataForm['password'].disabled = false;
+                            dataForm['pcNumber'].disabled = false;
+
+                            alert('Time out successful!');
+                        } else {
+                            console.error('Error moving data to dataWare:', error);
+                            alert('Failed to move data to archive. Please try again.');
+                            submitButton.disabled = false; // Re-enable button on failure
+                        }
+                    });
+                } else {
+                    console.error('Error fetching data for time out');
+                    alert('Failed to fetch data for time out. Please try again.');
+                    submitButton.disabled = false; // Re-enable button on failure
+                }
             });
-
-            // Clear local storage
-            localStorage.removeItem('comlab');
-            localStorage.removeItem('srcode');
-            localStorage.removeItem('email');
-            localStorage.removeItem('pcNumber');
-            localStorage.removeItem('buttonState');
-
-            // Reset form and button
-            dataForm.reset();
-            submitButton.textContent = 'TIME IN';
-            submitButton.setAttribute('data-action', 'time-in');
-            submitButton.classList.remove('btn-danger');
-            submitButton.classList.add('btn-primary');
-
-            // Enable form inputs
-            dataForm['comlab'].disabled = false;
-            dataForm['srcode'].disabled = false;
-            dataForm['email'].disabled = false;
-            dataForm['password'].disabled = false;
-            dataForm['pcNumber'].disabled = false;
-
-            alert('Time out successful!');
         }
     } catch (error) {
         // Handle errors during login or timeout
