@@ -19,7 +19,10 @@ const tableBody = document.getElementById("dataTableBody");
 
 // Function to fetch data from Firebase and populate the table
 function fetchDataAndPopulateTable() {
-    database.ref('com-lab-1').once('value', function(snapshot) {
+    // Clear the table body before repopulating
+    tableBody.innerHTML = '';
+
+    database.ref('dataWare').on('value', function(snapshot) {
         console.log("Snapshot from Firebase:", snapshot.val()); // Log the entire snapshot
 
         snapshot.forEach(function(childSnapshot) {
@@ -27,13 +30,14 @@ function fetchDataAndPopulateTable() {
             console.log("Data from Firebase:", data); // Log each data object
 
             // Check if data exists and has the expected fields
-            if (data && data.srcode && data.fullName && data.pcNumber && data.timeIn) {
+            if (data && data.comlab && data.srcode && data.fullName && data.pcNumber && data.timeIn && data.date) {
 
                 // Create a table row element
                 const row = document.createElement("tr");
 
                 // Populate table row with data
                 row.innerHTML = `
+                    <td>${data.comlab}</td>
                     <td>${data.srcode}</td>
                     <td>${data.fullName}</td>
                     <td>${data.pcNumber}</td>
@@ -47,7 +51,7 @@ function fetchDataAndPopulateTable() {
                 console.error("Data structure doesn't match expected format:", data);
             }
         });
-    }).catch(function(error) {
+    }, function(error) {
         console.error("Error fetching data from Firebase:", error);
     });
 }

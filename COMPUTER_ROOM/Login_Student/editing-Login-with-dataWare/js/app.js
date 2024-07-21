@@ -45,7 +45,14 @@ dataForm.addEventListener('submit', async (e) => {
             userRef.once('value', (snapshot) => {
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
-                    const fullName = userData.lastName + ' ' + userData.firstName + ' ' + userData.middleInitial;
+                    if (userData.email !== email) {
+                        alert('srcode does not match the registered email.');
+                        auth.signOut(); // Sign out the user
+                        submitButton.disabled = false; // Re-enable button on failure
+                        return;
+                    }
+                    
+                    const fullName = userData.lastName + ', ' + userData.firstName + ' ' + userData.middleInitial;
 
                     // Record login timestamp and full name in attendance node
                     const currentDate = new Date();
@@ -55,20 +62,24 @@ dataForm.addEventListener('submit', async (e) => {
                         hour12: true
                     });
 
-                    // Format the date as "DD-MM-YYYY"
+                    // Format the date as "MM-DD-YYYY"
                     const day = String(currentDate.getDate()).padStart(2, '0');
                     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
                     const year = currentDate.getFullYear();
+                    const formattedDate = `${month}-${day}-${year}`;
 
-                    const formattedDate = `${day}-${month}-${year}`;
+                    const studentUID = `${srcode}-${formattedTimeIn}-${formattedDate}`;
 
                     // Store user inputs in local storage
+                    localStorage.setItem('studentUID', studentUID);
                     localStorage.setItem('comlab', comlab);
                     localStorage.setItem('srcode', srcode);
                     localStorage.setItem('email', email);
                     localStorage.setItem('pcNumber', pcNumber);
 
-                    database.ref(comlab + srcode).update({
+                    database.ref(`${comlab}/` + srcode).update({
+                        comlab: comlab,
+                        studentUID: studentUID,
                         srcode: srcode,
                         date: formattedDate,
                         timeIn: formattedTimeIn,
@@ -112,21 +123,23 @@ dataForm.addEventListener('submit', async (e) => {
             });
 
             const storedSrcode = localStorage.getItem('srcode');
+            const storedStudentUID = localStorage.getItem('studentUID');
 
             // Move data from comlab to dataWare
-            const comlabRef = database.ref(comlab + storedSrcode);
+            const comlabRef = database.ref(`${comlab}/` + storedSrcode);
             comlabRef.once('value', (snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     data.timeOut = formattedTimeOut; // Add timeOut to data
 
                     // Save to dataWare
-                    database.ref('dataWare/' + storedSrcode).set(data, (error) => {
+                    database.ref('dataWare/' + storedStudentUID).set(data, (error) => {
                         if (!error) {
                             // Remove data from comlab
                             comlabRef.remove();
 
                             // Clear local storage
+                            localStorage.removeItem('studentUID');
                             localStorage.removeItem('comlab');
                             localStorage.removeItem('srcode');
                             localStorage.removeItem('email');
