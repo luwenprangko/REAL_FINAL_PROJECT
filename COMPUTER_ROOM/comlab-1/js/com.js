@@ -8,11 +8,9 @@ const firebaseConfig = {
     appId: "1:573050227714:web:8c3720298c64b470fb6b1b"
 };
 
-
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const database = firebaseApp.database();
-
 
 function fetchDataAndHighlight() {
     const refPath = 'com-lab-1/';
@@ -31,18 +29,19 @@ function fetchDataAndHighlight() {
             const data = childSnapshot.val();
             const pcNumber = data.pcNumber;
             const tdElement = document.getElementById(`pcNumber-${pcNumber}`);
+
             if (tdElement) {
-                if (data.timeOut) {
-                    // Reset cell styles to default if timeOut is set
-                    tdElement.style.backgroundColor = '';
-                    tdElement.style.color = '';
-                    tdElement.onclick = displayVacant;
-                } else {
+                if (!data.timeOut) {
                     // Highlight cell if timeOut is not set
                     dataExists = true;
                     tdElement.style.backgroundColor = 'green';
                     tdElement.style.color = 'white';
                     tdElement.onclick = () => displayStudentDetail(data);
+                } else {
+                    // Reset cell styles if timeOut is set
+                    tdElement.style.backgroundColor = '';
+                    tdElement.style.color = '';
+                    tdElement.onclick = displayVacant;
                 }
             }
         });
@@ -55,9 +54,6 @@ function fetchDataAndHighlight() {
         console.error("Error fetching data: ", error);
     });
 }
-
-
-
 
 // Function to display student details in the div
 function displayStudentDetail(data) {
@@ -86,10 +82,8 @@ function copyData(fullName, pcNumber, timeIn) {
     // Clean up - remove the textarea
     document.body.removeChild(textarea);
     
-    // Optionally, you can show a success message or perform any other action
     console.log('Data copied to clipboard');
 }
-
 
 // Function to display "Vacant" in the div
 function displayVacant() {
