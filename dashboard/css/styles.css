@@ -71,11 +71,11 @@ hr {
 }
 
 /* New styles for showing/hiding content sections */
-.home, .lab1, .lab2, .dataWare {
+.home, .lab1, .lab2, .dataWare, .registered{
     display: none; /* Hide initially */
 }
 
-.home.active, .lab1.active, .lab2.active, .dataWare.active {
+.home.active, .lab1.active, .lab2.active, .dataWare.active, .registered.active {
     display: block; /* Show when active */
 }
 
