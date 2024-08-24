@@ -1,13 +1,13 @@
 // Initialize Firebase with your project's config
 const firebaseConfig = {
-    apiKey: "AIzaSyAdssKrSZdB5MeO6bLlzs9ra42XSsQbNlg",
-    authDomain: "comlab-41b63.firebaseapp.com",
-    projectId: "comlab-41b63",
-    storageBucket: "comlab-41b63.appspot.com",
-    messagingSenderId: "573050227714",
-    appId: "1:573050227714:web:8c3720298c64b470fb6b1b"
+  apiKey: "AIzaSyDm9Qpv3uGByOVix841pKBCXIJhhblbwKQ",
+  authDomain: "bsu-mabini-comlab.firebaseapp.com",
+  databaseURL: "https://bsu-mabini-comlab-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "bsu-mabini-comlab",
+  storageBucket: "bsu-mabini-comlab.appspot.com",
+  messagingSenderId: "548993981418",
+  appId: "1:548993981418:web:b1f35c7b026c253c27b093"
 };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
